@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+model Achievement {
+  @@map("achievements")
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  image       String
+  isObtainable Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  category     Category   @relation(fields: [categoryId], references: [id])
+  categoryId   String
+  userAchievements UserAchievement[]
+}
+
+model User {
+  @@map("users")
+  id           String    @id @default(cuid())
+  cid          String    @unique
+  createdAt    DateTime  @default(now())
+
+  achievements UserAchievement[]
+}
+
+model UserAchievement {
+  @@map("userAchievements")
+  createdAt     DateTime  @default(now())
+
+  user          User      @relation(fields: [cid], references: [cid])
+  cid           String
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  achievementId Int
+
+  @@id([cid, achievementId])
+}
+
+model Category {
+  @@map("categories")
+  id        String       @id @default(cuid())
+  name      String
+
+  achievements Achievement[]
+}
