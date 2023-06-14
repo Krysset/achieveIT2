@@ -2,6 +2,7 @@ import { config } from 'dotenv';
 import express from 'express';
 import achievementRouter from './routers/achievementRouter';
 import categoryRouter from './routers/categoryRouter';
+import userRouter from './routers/userRouter';
 
 config();
 
@@ -29,10 +30,7 @@ export enum StatusCode {
 
 app.use('/api/achievement', achievementRouter);
 app.use('/api/category', categoryRouter);
-
-app.get('/', (req, res) => {
-	res.send('Hello World!');
-});
+app.use('/api/user', userRouter);
 
 app.listen(port, () => {
 	console.log(`AchievIT 💪 listening on port ${port}`);
