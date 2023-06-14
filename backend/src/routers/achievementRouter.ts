@@ -6,7 +6,8 @@ import {
 	getAchievements,
 	getCategory,
 	giveAchievementToUser,
-	removeAchievementFromUser
+	removeAchievementFromUser,
+	updateAchievement
 } from '../prisma';
 import { z } from 'zod';
 import {
@@ -64,6 +65,28 @@ achievementRouter.get(
 	validateRequestParams(requestGetSchema),
 	async (req, res) => {
 		const response = getAchievement(req.params.id);
+		if (!response) {
+			res.status(StatusCode.BadRequest).send('Something went wrong!');
+			return;
+		}
+		res.status(StatusCode.Ok).send(response);
+	}
+);
+
+const requestUpdateSchema = z.object({
+	id: z.string().cuid(),
+	name: z.string().min(1).max(50).nullable(),
+	description: z.string().min(1).max(500).nullable(),
+	image: z.string().min(1).nullable(),
+	category: z.string().cuid().nullable(),
+	isObtainable: z.boolean().nullable()
+});
+
+achievementRouter.post(
+	'/update',
+	validateRequestBody(requestUpdateSchema),
+	async (req, res) => {
+		const response = await updateAchievement(req.body.id);
 		if (!response) {
 			res.status(StatusCode.BadRequest).send('Something went wrong!');
 			return;

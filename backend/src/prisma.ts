@@ -41,7 +41,8 @@ export const updateAchievement = async (
 	name?: string,
 	description?: string,
 	image?: string,
-	category?: string
+	category?: string,
+	isObtainable?: boolean
 ) => {
 	return await prisma.achievement.update({
 		where: {
@@ -55,7 +56,8 @@ export const updateAchievement = async (
 				update: {
 					id: category
 				}
-			}
+			},
+			isObtainable: isObtainable
 		}
 	});
 };
