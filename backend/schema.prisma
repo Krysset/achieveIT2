@@ -9,15 +9,16 @@ datasource db {
 
 model Achievement {
   @@map("achievements")
-  id          Int       @id @default(autoincrement())
-  name        String
-  description String
-  image       String
+  id           String    @id @default(cuid())
+  name         String
+  description  String
+  image        String
   isObtainable Boolean   @default(true)
-  createdAt   DateTime  @default(now())
+  createdAt    DateTime  @default(now())
 
   category     Category   @relation(fields: [categoryId], references: [id])
   categoryId   String
+
   userAchievements UserAchievement[]
 }
 
@@ -32,20 +33,20 @@ model User {
 
 model UserAchievement {
   @@map("userAchievements")
-  createdAt     DateTime  @default(now())
+  createdAt     DateTime    @default(now())
 
-  user          User      @relation(fields: [cid], references: [cid])
+  user          User        @relation(fields: [cid], references: [cid])
   cid           String
   achievement   Achievement @relation(fields: [achievementId], references: [id])
-  achievementId Int
+  achievementId String
 
   @@id([cid, achievementId])
 }
 
 model Category {
   @@map("categories")
-  id        String       @id @default(cuid())
-  name      String
+  id        String      @id @default(cuid())
+  name      String      @unique
 
   achievements Achievement[]
 }
