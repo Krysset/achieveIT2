@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { createCategory, getCategories, getCategory } from '../prisma';
+import {
+	createCategory,
+	deleteCategory,
+	getCategories,
+	getCategory
+} from '../prisma';
 import { StatusCode } from '../app';
 import { z } from 'zod';
 import {
@@ -42,6 +47,23 @@ categoryRouter.get(
 		const response = await getCategory(req.params.id);
 		if (!response) {
 			res.status(StatusCode.NotFound).send('Category not found!');
+			return;
+		}
+		res.status(StatusCode.Ok).send(response);
+	}
+);
+
+const requestDeleteSchema = z.object({
+	id: z.string().cuid()
+});
+
+categoryRouter.post(
+	'/delete',
+	validateRequestBody(requestDeleteSchema),
+	async (req, res) => {
+		const response = await deleteCategory(req.body.id);
+		if (!response) {
+			res.status(StatusCode.BadRequest).send('Something went wrong!');
 			return;
 		}
 		res.status(StatusCode.Ok).send(response);
