@@ -113,10 +113,11 @@ export const deleteCategory = async (id: string) => {
 
 // User
 
+// You can use id or cid to get a user
 export const getUser = async (id: string) => {
-	return await prisma.user.findUnique({
+	return await prisma.user.findFirst({
 		where: {
-			id: id
+			OR: [{ id: id }, { cid: id }]
 		}
 	});
 };
