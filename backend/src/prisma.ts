@@ -168,3 +168,17 @@ export const giveAchievementToUser = async (
 		}
 	});
 };
+
+export const removeAchievementFromUser = async (
+	cid: string,
+	achievementId: string
+) => {
+	return await prisma.userAchievement.delete({
+		where: {
+			cid_achievementId: {
+				cid: cid,
+				achievementId: achievementId
+			}
+		}
+	});
+};
