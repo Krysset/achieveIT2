@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 // Achievement
 
-export const getAchievement = async (id: number) => {
+export const getAchievement = async (id: string) => {
 	return await prisma.achievement.findUnique({
 		where: {
 			id: id
@@ -37,7 +37,7 @@ export const createAchievement = async (
 };
 
 export const updateAchievement = async (
-	id: number,
+	id: string,
 	name?: string,
 	description?: string,
 	image?: string,
@@ -60,7 +60,7 @@ export const updateAchievement = async (
 	});
 };
 
-export const deleteAchievement = async (id: number) => {
+export const deleteAchievement = async (id: string) => {
 	return await prisma.achievement.delete({
 		where: {
 			id: id
@@ -105,6 +105,66 @@ export const deleteCategory = async (id: string) => {
 	return await prisma.category.delete({
 		where: {
 			id: id
+		}
+	});
+};
+
+// User
+
+export const getUser = async (id: string) => {
+	return await prisma.user.findUnique({
+		where: {
+			id: id
+		}
+	});
+};
+
+export const getUsers = async () => {
+	return await prisma.user.findMany();
+};
+
+export const createUser = async (cid: string) => {
+	return await prisma.user.create({
+		data: {
+			cid
+		}
+	});
+};
+
+export const deleteUser = async (id: string) => {
+	return await prisma.user.delete({
+		where: {
+			id: id
+		}
+	});
+};
+
+// UserAchievement
+
+export const getUserAchievements = async (cid: string) => {
+	return await prisma.userAchievement.findMany({
+		where: {
+			cid: cid
+		}
+	});
+};
+
+export const giveAchievementToUser = async (
+	cid: string,
+	achievementId: string
+) => {
+	return await prisma.userAchievement.create({
+		data: {
+			user: {
+				connect: {
+					cid: cid
+				}
+			},
+			achievement: {
+				connect: {
+					id: achievementId
+				}
+			}
 		}
 	});
 };
