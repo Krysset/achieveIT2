@@ -5,7 +5,8 @@ import {
 	getAchievement,
 	getAchievements,
 	getCategory,
-	giveAchievementToUser
+	giveAchievementToUser,
+	removeAchievementFromUser
 } from '../prisma';
 import { z } from 'zod';
 import {
@@ -71,14 +72,14 @@ achievementRouter.get(
 	}
 );
 
-const requestGiveSchema = z.object({
+const requestGiveTakeSchema = z.object({
 	cid: z.string().min(1).max(50),
 	achievementId: z.string().cuid()
 });
 
 achievementRouter.post(
 	'/give',
-	validateRequestBody(requestGiveSchema),
+	validateRequestBody(requestGiveTakeSchema),
 	async (req, res) => {
 		const response = await giveAchievementToUser(
 			req.body.cid,
@@ -89,6 +90,22 @@ achievementRouter.post(
 			return;
 		}
 		res.status(StatusCode.Created).send(response);
+	}
+);
+
+achievementRouter.post(
+	'/take',
+	validateRequestBody(requestGiveTakeSchema),
+	async (req, res) => {
+		const response = await removeAchievementFromUser(
+			req.body.cid,
+			req.body.achievementId
+		);
+		if (!response) {
+			res.status(StatusCode.BadRequest).send('Something went wrong!');
+			return;
+		}
+		res.status(StatusCode.Ok).send(response);
 	}
 );
 
