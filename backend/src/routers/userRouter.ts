@@ -32,7 +32,7 @@ userRouter.post(
 			res.status(StatusCode.BadRequest).send('Something went wrong!');
 			return;
 		}
-		res.status(StatusCode.Created).send(response);
+		res.status(StatusCode.Ok).send(response);
 	}
 );
 
