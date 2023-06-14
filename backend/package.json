@@ -20,6 +20,8 @@
 	"dependencies": {
 		"@prisma/client": "4.15.0",
 		"dotenv": "^16.1.4",
-		"express": "^4.18.2"
+		"express": "^4.18.2",
+		"zod": "^3.21.4",
+		"zod-express-middleware": "^1.4.0"
 	}
 }
