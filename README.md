@@ -19,3 +19,13 @@ Run `docker compose -f docker-compose.dev.yml up -d` to start dev gamma
 If you're in root, run `cd backend`.
 Run `pnpm install` to download all dependencies.
 Then run `pnpm run dev` to start dev environment.
+
+## Good commmands to remember
+
+### View database
+
+Run `pnpm prisma studio` in backend
+
+### Update database
+
+Run `pnpm prisma db push` in backend
