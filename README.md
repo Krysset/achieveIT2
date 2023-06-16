@@ -10,9 +10,9 @@ A rewrite and update of IT:s achievement service.
 
 ## Running
 
-### Gamma
+### Starting dev docker
 
-Run `docker compose -f docker-compose.dev.yml up -d` to start dev gamma
+Run `docker compose -f docker-compose.dev.yml up -d` to start dev docker
 
 ### Backend
 
