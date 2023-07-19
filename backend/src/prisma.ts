@@ -12,6 +12,16 @@ export const getAchievement = async (id: string) => {
 	});
 };
 
+export const getAchievementFromCategory = async (categoryId: string) => {
+	return await prisma.achievement.findMany({
+		where: {
+			category: {
+				id: categoryId
+			}
+		}
+	});
+};
+
 export const getAchievements = async () => {
 	return await prisma.achievement.findMany();
 };

@@ -4,6 +4,7 @@ import {
 	createAchievement,
 	getAchievement,
 	getAchievements,
+	getAchievementFromCategory as getAchievementFromCategory,
 	getCategory,
 	giveAchievementToUser,
 	removeAchievementFromUser,
@@ -69,6 +70,24 @@ achievementRouter.get(
 			res.status(StatusCode.BadRequest).send('Something went wrong!');
 			return;
 		}
+		res.status(StatusCode.Ok).send(response);
+	}
+);
+
+const requestGetFromCategorySchema = z.object({
+	categoryId: z.string().cuid()
+});
+
+achievementRouter.get(
+	'/category/:categoryId',
+	validateRequestParams(requestGetFromCategorySchema),
+	async (req, res) => {
+		const response = await getAchievementFromCategory(req.params.categoryId);
+		if (!response) {
+			res.status(StatusCode.BadRequest).send('Something went wrong!');
+			return;
+		}
+		console.log(response);
 		res.status(StatusCode.Ok).send(response);
 	}
 );
