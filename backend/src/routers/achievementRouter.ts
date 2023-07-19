@@ -87,7 +87,6 @@ achievementRouter.get(
 			res.status(StatusCode.BadRequest).send('Something went wrong!');
 			return;
 		}
-		console.log(response);
 		res.status(StatusCode.Ok).send(response);
 	}
 );
