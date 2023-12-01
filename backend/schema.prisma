@@ -48,5 +48,15 @@ model Category {
   id        String      @id @default(cuid())
   name      String      @unique
 
+  // Maybe add an image for the category?
+
   achievements Achievement[]
+}
+
+model AuthorizeToken {
+  @@map("authorizeTokens")
+  token     String      @id @default(cuid())
+  tokenName String      @unique
+  createdAt DateTime    @default(now())
+  expiresAt DateTime?
 }

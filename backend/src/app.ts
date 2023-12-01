@@ -3,6 +3,7 @@ import express from 'express';
 import achievementRouter from './routers/achievementRouter';
 import categoryRouter from './routers/categoryRouter';
 import userRouter from './routers/userRouter';
+import { isAuthenticated } from './services/authService';
 
 config();
 
@@ -27,7 +28,7 @@ export enum StatusCode {
 	BadGateway = 502,
 	ServiceUnavailable = 503
 }
-
+app.use(isAuthenticated);
 app.use('/api/achievement', achievementRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/user', userRouter);

@@ -195,3 +195,40 @@ export const removeAchievementFromUser = async (
 		}
 	});
 };
+
+// AuthorizeToken
+
+export const isTokenValid = async (token: string) => {
+	const res = await prisma.authorizeToken.findUnique({
+		where: {
+			token: token
+		}
+	});
+	if (res) {
+		if (res.expiresAt && !(new Date(res.expiresAt) > new Date())) {
+			console.log('Token expired');
+			deleteToken(token);
+			return false;
+		}
+		return true;
+	}
+	console.log('Token not found');
+	return false;
+};
+
+export const createToken = async (tokenName: string, expiresAt?: Date) => {
+	return await prisma.authorizeToken.create({
+		data: {
+			tokenName: tokenName,
+			expiresAt: expiresAt
+		}
+	});
+};
+
+export const deleteToken = async (token: string) => {
+	return await prisma.authorizeToken.delete({
+		where: {
+			token: token
+		}
+	});
+};
