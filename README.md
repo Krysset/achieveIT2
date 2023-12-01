@@ -20,6 +20,12 @@ If you're in root, run `cd backend`.
 Run `pnpm install` to download all dependencies.
 Then run `pnpm run dev` to start dev environment.
 
+### Building
+
+If you're in root, run `cd backend`.
+
+Run `docker build -t "achieveit" .` to build an image named **achieveit**
+
 ## Good commmands to remember
 
 ### View database
