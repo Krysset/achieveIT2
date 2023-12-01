@@ -18,6 +18,7 @@ Run `docker compose -f docker-compose.dev.yml up -d` to start dev docker
 
 If you're in root, run `cd backend`.
 Run `pnpm install` to download all dependencies.
+Copy the `.env.example` file and rename the new file to `.env` and make changes if necessary.
 Then run `pnpm run dev` to start dev environment.
 
 ### Building
