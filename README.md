@@ -1,4 +1,4 @@
-# AchievIT 2 (TS rewrite)
+# AchieveIT 2 (TS rewrite)
 
 A rewrite and update of IT:s achievement service.
 

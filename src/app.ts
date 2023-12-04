@@ -34,5 +34,5 @@ app.use('/api/category', categoryRouter);
 app.use('/api/user', userRouter);
 
 app.listen(port, () => {
-	console.log(`AchievIT 💪 listening on port ${port}`);
+	console.log(`AchieveIT 💪 listening on port ${port}`);
 });

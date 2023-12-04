@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 123
-      POSTGRES_DB: achievit
+      POSTGRES_DB: achieveit
       PGDATA: /data/postgres
     volumes:
       - postgres-db:/data/postgres
