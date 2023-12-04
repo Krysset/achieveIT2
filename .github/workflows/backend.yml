@@ -30,4 +30,4 @@ jobs:
         with:
           context: ./backend
           push: ${{ github.ref == 'refs/heads/main' }}
-          tags: ghcr.io/krysset/achieveit:latest
+          tags: ghcr.io/krysset/achievit2:latest
